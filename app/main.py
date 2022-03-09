@@ -5,7 +5,7 @@ import ctypes
 import cv2
 import math 
 import mediapipe as mp
-import helpers
+from  helpers.helper import compute 
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
@@ -62,9 +62,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
             # Calculate the angles
 
-            angle = math.trunc(helpers.compute(shoulder, elbow, wrist))
-            rangle = math.trunc(helpers.compute(right_shoulder,right_elbow,right_wrist))
-            falseangle = math.trunc(helpers.compute(shoulder,left_hip,left_knee))
+            angle = math.trunc(compute(shoulder, elbow, wrist))
+            rangle = math.trunc(compute(right_shoulder,right_elbow,right_wrist))
+            falseangle = math.trunc(compute(shoulder,left_hip,left_knee))
             
             # Visualize angle
             cv2.putText(image, str(angle), 
