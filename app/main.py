@@ -5,7 +5,7 @@ import ctypes
 import cv2
 import math 
 import mediapipe as mp
-from  helpers.helper import compute 
+from  helpers.helper import compute,get_coordinates
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
@@ -50,14 +50,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             landmarks = detections.pose_landmarks.landmark
             
             # Get coordinates
-            shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-            elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
-            wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
-            left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
-            left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
-            right_shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
-            right_elbow = [landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
-            right_wrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
+            shoulder,elbow, wrist,left_hip,left_knee,right_shoulder,right_elbow,right_wrist=get_coordinates(landmarks)
 
 
             # Calculate the angles
@@ -94,6 +87,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
  
 
         cv2.putText(image, str(COUNTER), (12,60),
+                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (255,0,0), 2, cv2.LINE_AA)
+        cv2.putText(image, str(stage), (500,60),
                     cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (255,0,0), 2, cv2.LINE_AA)
 
 
