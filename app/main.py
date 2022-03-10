@@ -5,6 +5,8 @@ import ctypes
 import cv2
 import math 
 import mediapipe as mp
+import pyttsx3
+from time import sleep
 from  helpers.helper import *
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -69,6 +71,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                            tuple(np.multiply(right_elbow, [640, 480]).astype(int)), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                                 )
+
             cv2.putText(image, str(falseangle), 
                            tuple(np.multiply(shoulder, [640, 480]).astype(int)), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
@@ -80,8 +83,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             if angle < 30 and rangle < 30 and STAGE =='down':
                 STAGE="up"
                 COUNTER +=1
-                print(COUNTER)
-
+            if COUNTER == 4 and STAGE == "down":
+                break
+                        
         except:
             print("Unable to fetch the landmarks, please face the came upright!")
  
@@ -105,4 +109,12 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
 cap.release()
 cv2.destroyAllWindows()
- 
+
+# Delay the execution by 1 second
+sleep(1)
+
+# Voice guided output for finishing the exercise
+engine = pyttsx3.init()
+engine.setProperty("rate",150)
+engine.say(f"Congratulations! you finished the exercise with {COUNTER} reps")
+engine.runAndWait()
