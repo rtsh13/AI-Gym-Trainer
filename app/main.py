@@ -5,7 +5,7 @@ import ctypes
 import cv2
 import math 
 import mediapipe as mp
-from  helpers.helper import compute,get_coordinates
+from  helpers.helper import *
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
@@ -76,9 +76,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             
             # Curl counter logic
             if angle > 160 and rangle > 160:
-                stage = "down"
-            if angle < 30 and rangle < 30 and stage =='down':
-                stage="up"
+                STAGE = "down"
+            if angle < 30 and rangle < 30 and STAGE =='down':
+                STAGE="up"
                 COUNTER +=1
                 print(COUNTER)
 
@@ -88,7 +88,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
         cv2.putText(image, str(COUNTER), (12,60),
                     cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (255,0,0), 2, cv2.LINE_AA)
-        cv2.putText(image, str(stage), (500,60),
+        cv2.putText(image, str(STAGE), (500,60),
                     cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (255,0,0), 2, cv2.LINE_AA)
 
 
