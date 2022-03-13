@@ -11,19 +11,12 @@ from  helpers.helper import *
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
-# Set the Window Size
-WINDOW = "Full Integration"
-
 # Initialize video capture for external webcam 
 vc = cv2.VideoCapture(1)
 
 # Using internal webcam, if external not present
 if not vc.read()[0]:
     vc = cv2.VideoCapture(0)
-
-# Full screen mode
-cv2.namedWindow(WINDOW, cv2.WND_PROP_FULLSCREEN)
-cv2.setWindowProperty(WINDOW, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 cap = cv2.VideoCapture(0)
 
@@ -48,7 +41,6 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
         # Extract landmarks
         try:
-
             landmarks = detections.pose_landmarks.landmark
             
             # Get coordinates
@@ -56,11 +48,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
 
             # Calculate the angles
-
             angle = math.trunc(compute(shoulder, elbow, wrist))
             rangle = math.trunc(compute(right_shoulder,right_elbow,right_wrist))
-            falseangle = math.trunc(compute(shoulder,left_hip,left_knee))
-            
+
             # Visualize angle
             cv2.putText(image, str(angle), 
                            tuple(np.multiply(elbow, [640, 480]).astype(int)), 
@@ -72,11 +62,6 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                                 )
 
-            cv2.putText(image, str(falseangle), 
-                           tuple(np.multiply(shoulder, [640, 480]).astype(int)), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-                                )
-            
             # Curl counter logic
             if angle > 160 and rangle > 160:
                 STAGE = "down"
@@ -87,20 +72,18 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 break
                         
         except:
-            print("Unable to fetch the landmarks, please face the came upright!")
+            print("Unable to fetch the landmarks, please face the camera upright!")
  
-
         cv2.putText(image, str(COUNTER), (12,60),
                     cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (255,0,0), 2, cv2.LINE_AA)
         cv2.putText(image, str(STAGE), (500,60),
                     cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (255,0,0), 2, cv2.LINE_AA)
 
-
         # Render detections
         drawing.draw_landmarks(image, detections.pose_landmarks, mp_pose.POSE_CONNECTIONS,
                                 drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
                                 drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
-                                 )               
+                                )               
         
         cv2.imshow('Feed', image)
 
@@ -113,7 +96,7 @@ cv2.destroyAllWindows()
 # Delay the execution by 1 second
 sleep(1)
 
-# Voice guided output for finishing the exercise
+# Voice guided output for finishing the exercise -> enhancement to integrate with frontend
 engine = pyttsx3.init()
 engine.setProperty("rate",150)
 engine.say(f"Congratulations! you finished the exercise with {COUNTER} reps")
