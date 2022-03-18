@@ -79,7 +79,7 @@ for sets in repsForSets:
                 except:
                     pass
 
-                renderText()
+                renderText(image=image, COUNTER=COUNTER,STAGE=STAGE)
 
                 # Render detections
                 drawing.draw_landmarks(image, detections.pose_landmarks, mp_pose.POSE_CONNECTIONS,
