@@ -3,6 +3,7 @@ from time import sleep
 import numpy as np
 import cv2
 import math 
+import pyttsx3
 import mediapipe as mp
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -20,14 +21,19 @@ for i in range(1,int(sets)+1):
     reps = int(input(f"Enter the number of reps for set {i}: ")) 
     repsForSets[i] = reps
 
-for sets in repsForSets:
-    # Initialize video capture 
-    vc = cv2.VideoCapture(1)
-    if not vc.read()[0]:
-        vc = cv2.VideoCapture(0)
+# Initialize video capture 
+print("Establising connection\n")
+print(".........")
+sleep(1)
+port = int(input(f"Are you using an external or internal camera? Enter 1 for external,0 for internal : "))
 
+if port < 0 or port > 1:
+    print("Eh, Technical Glitch")
+    exit(0)
+
+for sets in repsForSets:
     COUNTER = 0
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(port)
     if equipment == defaultEquipment or equipment == bicepEquiment:
         with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.6) as pose:
             while cap.isOpened():
@@ -49,7 +55,7 @@ for sets in repsForSets:
                     landmarks = detections.pose_landmarks.landmark
                     
                     # Get coordinates
-                    leftShoulder,leftElbow,leftWrist,leftHip,leftKnee,rightShoulder,rightElbow,rightWrist,rightHip,rightKnee=get_coordinates(landmarks)
+                    leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist=get_coordinates(landmarks,bicepCurls)
 
                     # Calculate the angles
                     leftAngle = math.trunc(compute(leftShoulder, leftElbow, leftWrist))
@@ -95,4 +101,8 @@ for sets in repsForSets:
     
     sleep(10)
 
-        
+# Voice guided output for finishing the exercise -> enhancement to integrate with frontend
+engine = pyttsx3.init()
+engine.setProperty("rate",150)
+engine.say(f"Congratulations! you finished the {bicepCurls}  with {COUNTER} reps")
+engine.runAndWait()        
