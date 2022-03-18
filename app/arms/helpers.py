@@ -18,7 +18,7 @@ def compute(firstAngle,secondAngle, thirdAngle):
         
     return angle 
     
-def get_coordinates(landmarks):
+def get_coordinates(landmarks,type):
     leftShoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
     leftElbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
     leftWrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
@@ -30,7 +30,12 @@ def get_coordinates(landmarks):
     rightHip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
     rightKnee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
 
-    return leftShoulder,leftElbow,leftWrist,leftHip,leftKnee,rightShoulder,rightElbow,rightWrist,rightHip,rightKnee
+    if type == "diamondPushups":
+        return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
+    elif type == "bicepCurls":
+        return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
+    else :
+        return leftShoulder,leftElbow,leftWrist,leftHip,leftKnee,rightShoulder,rightElbow,rightWrist,rightHip,rightKnee
 
 def renderText(image,COUNTER,STAGE):
     cv2.rectangle(image, (0, 0),(65,80),(0,0,0), -1)
