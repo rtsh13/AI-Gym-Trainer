@@ -3,7 +3,7 @@ from time import sleep
 import numpy as np
 import cv2
 import math 
-import pyttsx3
+# import pyttsx3
 import mediapipe as mp
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -102,7 +102,7 @@ for sets in repsForSets:
 
         
 # Voice guided output for finishing the exercise -> enhancement to integrate with frontend
-engine = pyttsx3.init()
-engine.setProperty("rate",150)
-engine.say(f"Congratulations! you finished the {diamondPushups} with {COUNTER} reps")
-engine.runAndWait()
+# engine = pyttsx3.init()
+# engine.setProperty("rate",150)
+# engine.say(f"Congratulations! you finished the {diamondPushups} with {COUNTER} reps")
+# engine.runAndWait()
