@@ -16,7 +16,6 @@ from constants import *
 # Get User Input
 sets = input("Please enter the desired number of sets:")
 repsForSets = {}
-equipment="dumbbell"
 
 for i in range(1,int(sets)+1):
     reps = int(input(f"Enter the number of reps for set {i}: ")) 
@@ -36,8 +35,7 @@ for sets in repsForSets:
     COUNTER = 0
     flag=0
     cap = cv2.VideoCapture(port)
-    if equipment == defaultEquipment or equipment == bicepEquiment:
-        with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.6) as pose:
+    with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.6) as pose:
             while cap.isOpened():
                 ret, frame = cap.read()
 
@@ -85,6 +83,7 @@ for sets in repsForSets:
                             print("Congrats for making it this far, Take a break, you have finished your set")
                             flag=1
                             COUNTER=0
+                            
                     elif flag==1:
                         if rightAngle > 160:
                             STAGE = "DOWN"
@@ -110,8 +109,8 @@ for sets in repsForSets:
                 if cv2.waitKey(10) & 0xFF == ord('q'):
                     break
 
-        cap.release()
-        cv2.destroyAllWindows()
+    cap.release()
+    cv2.destroyAllWindows()
     
     sleep(10)
 
