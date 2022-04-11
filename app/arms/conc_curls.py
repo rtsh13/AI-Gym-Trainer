@@ -3,7 +3,6 @@ from time import sleep
 import numpy as np
 import cv2
 import math 
-# import pyttsx3
 import mediapipe as mp
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -13,8 +12,9 @@ mp_drawing_styles = mp.solutions.drawing_styles
 from helpers import *
 from constants import *
 
+
 # Get User Input
-sets,equipment = input("Please enter the desired number of sets and equipment to be used:").split()
+sets = input("Please enter the desired number of sets:")
 repsForSets = {}
 
 for i in range(1,int(sets)+1):
@@ -33,9 +33,9 @@ if port < 0 or port > 1:
 
 for sets in repsForSets:
     COUNTER = 0
+    flag=0
     cap = cv2.VideoCapture(port)
-    if equipment == defaultEquipment or equipment == bicepEquiment:
-        with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.6) as pose:
+    with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.6) as pose:
             while cap.isOpened():
                 ret, frame = cap.read()
 
@@ -73,20 +73,33 @@ for sets in repsForSets:
                                 )
 
                     # Curl counter logic
-                    if leftAngle > 160 and rightAngle > 160:
-                        STAGE = "DOWN"
-                    if leftAngle < 30 and rightAngle < 30 and STAGE =="DOWN":
-                        STAGE="UP"
-                        COUNTER +=1
-                    if COUNTER == repsForSets[sets] and STAGE == "DOWN":
-                        print("Congrats for making it this far, Take a break, you have finished your set")
-                        break
+                    if flag ==0:
+                        if leftAngle > 160:
+                            STAGE = "DOWN"
+                        if leftAngle < 30 and STAGE =="DOWN":
+                            STAGE="UP"
+                            COUNTER +=1
+                        if COUNTER == repsForSets[sets] and STAGE == "DOWN":
+                            print("Congrats for making it this far, Take a break, you have finished your set")
+                            flag=1
+                            COUNTER=0
+                            
+                    elif flag==1:
+                        if rightAngle > 160:
+                            STAGE = "DOWN"
+                        if rightAngle < 30 and STAGE =="DOWN":
+                            STAGE="UP"
+                            COUNTER +=1
+                        if COUNTER == repsForSets[sets] and STAGE == "DOWN":
+                            print("Congrats for making it this far, Take a break, you have finished your set")
+                            break
+                    
 
                 except:
                     pass
 
                 renderText(image=image, COUNTER=COUNTER,STAGE=STAGE)
-
+    
                 # Render detections
                 drawing.draw_landmarks(image, detections.pose_landmarks, mp_pose.POSE_CONNECTIONS,
                                         drawing.DrawingSpec(color=(0,0,255), thickness=2, circle_radius=2), 
@@ -96,13 +109,10 @@ for sets in repsForSets:
                 if cv2.waitKey(10) & 0xFF == ord('q'):
                     break
 
-        cap.release()
-        cv2.destroyAllWindows()
+    cap.release()
+    cv2.destroyAllWindows()
     
     sleep(10)
 
-# Voice guided output for finishing the exercise -> enhancement to integrate with frontend
-# engine = pyttsx3.init()
-# engine.setProperty("rate",150)
-# engine.say(f"Congratulations! you finished the {bicepCurls}  with {COUNTER} reps")
-# engine.runAndWait()        
+    # cv2.rectangle(image, (500, 0),(800,80),(0,0,0), -1)    
+    # cv2.putText(image, str(STAGE), (500,60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (0,255,0), 2, cv2.LINE_AA)
