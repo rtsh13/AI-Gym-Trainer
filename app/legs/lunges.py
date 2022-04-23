@@ -3,7 +3,6 @@ from time import sleep
 import numpy as np
 import cv2
 import math 
-# import pyttsx3
 import mediapipe as mp
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -11,6 +10,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 
 # Importing packages
 from helpers import *
+from constants import *
 
 # Get User Input
 sets = input("Please enter the desired number of sets:")
@@ -32,7 +32,6 @@ if port < 0 or port > 1:
 
 for sets in repsForSets:
     COUNTER = 0
-    flag =0
     cap = cv2.VideoCapture(port)
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.6) as pose:
         while cap.isOpened():
@@ -54,47 +53,23 @@ for sets in repsForSets:
                 landmarks = detections.pose_landmarks.landmark
                 
                 # Get coordinates
-                leftWrist,leftElbow,leftShoulder,rightWrist,rightElbow,rightShoulder,leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle=get_coordinates(landmarks,"squats")
+                rightHeel,rightKnee,rightHip,leftHeel,leftKnee,leftHip = get_coordinates(landmarks,"lunges")
 
                 # Calculate the angles
-                leftAngle = math.trunc(compute(leftHip, leftKnee,leftAnkle))
-                rightAngle = math.trunc(compute(rightHip,rightKnee,rightAnkle))
-
-                # leftBottomAngle = math.trunc(compute(leftHip, leftKnee, leftAnkle))
-                # rightBottomAngle = math.trunc(compute(rightHip,rightKnee,rightAnkle))
-
+                leftAngle = math.trunc(compute(leftHip, leftKnee,leftHeel))
+                rightAngle = math.trunc(compute(rightHip,rightKnee,rightHeel))
 
                 # Visualize angle
                 cv2.putText(image, str(leftAngle), 
-                            tuple(np.multiply(leftElbow, [640, 480]).astype(int)), 
+                            tuple(np.multiply(leftKnee, [640, 480]).astype(int)), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA
                             )
                 
                 cv2.putText(image, str(rightAngle), 
-                            tuple(np.multiply(rightElbow, [640, 480]).astype(int)), 
+                            tuple(np.multiply(rightKnee, [640, 480]).astype(int)), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA
                             )
 
-                # Curl counter logic
-                # if flag==0:
-                #     if leftAngle > 160:
-                #         STAGE = "DOWN"
-                #     if leftAngle < 30 and STAGE =="DOWN":
-                #         STAGE="UP"
-                #         COUNTER +=1
-                #     if COUNTER == repsForSets[sets] and STAGE == "DOWN":
-                #         print("Congrats for making it this far, Take a break, you have finished your set")
-                #         flag=1
-                #         COUNTER=0
-                # elif flag == 1:
-                #     if rightAngle > 160:
-                #         STAGE = "DOWN"
-                #     if rightAngle < 30 and STAGE =="DOWN":
-                #         STAGE="UP"
-                #         COUNTER +=1
-                #     if COUNTER == repsForSets[sets] and STAGE == "DOWN":
-                #         print("Congrats for making it this far, Take a break, you have finished your set")
-                #         break
                 if leftAngle < 120 and rightAngle < 120 and STAGE =="UP":
                     STAGE = "DOWN"
                 if leftAngle > 160 and rightAngle > 160:
@@ -122,9 +97,3 @@ for sets in repsForSets:
     cv2.destroyAllWindows()
     
     sleep(10)
-
-# Voice guided output for finishing the exercise -> enhancement to integrate with frontend
-# engine = pyttsx3.init()
-# engine.setProperty("rate",150)
-# engine.say(f"Congratulations! you finished the {bicepCurls}  with {COUNTER} reps")
-# engine.runAndWait()        
