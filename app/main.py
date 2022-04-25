@@ -1,14 +1,10 @@
-# common point for every application to run
-from flask import Flask, Response, redirect
+# # common point for every application to run
+from flask import Flask, Response, render_template,redirect
 import cv2
 import mediapipe as mp
-import numpy as np
-import math
 drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 mp_drawing_styles = mp.solutions.drawing_styles
-COUNTER = 0
-STAGE = None
 
 app = Flask(__name__)
 
@@ -32,18 +28,17 @@ def generate_frames():
             yield(b'--frame\r\n'
                     b'Content-Type: image/jpeg\r\n\r\n' + x + b'\r\n')
 
-    cap.release()
-    cv2.destroyAllWindows()
+        cap.release()
+        cv2.destroyAllWindows()
 
+@app.route('/')
+def index():
+    return render_template('videoTemplate.html')
 
-@app.route("/about")
-def about():
-    return redirect("https://scoutapm.com/blog/python-flask-tutorial-getting-started-with-flask")
-
-@app.route("/video")
+# TODO: Random url generation // avoiding data leakage
+@app.route('/pvt')
 def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__=="__main__":
+    app.run(debug=True) 
