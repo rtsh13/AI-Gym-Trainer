@@ -7,7 +7,7 @@ from utils.constants import *
 from utils.helpers import * 
 
 def JumpingJacks(reps, sets):
-    for _ in range(0,sets+1):
+    for _ in range(sets):
         COUNTER = 0
         STAGE = None
         cap = cv2.VideoCapture(0)

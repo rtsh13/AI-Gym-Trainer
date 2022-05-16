@@ -6,7 +6,7 @@ from utils.constants import *
 from utils.helpers import * 
 
 def Lunges(reps,sets):
-    for _ in range(0,sets+1):
+    for _ in range(sets):
         COUNTER = 0
         cap = cv2.VideoCapture(0)
         with mp_pose.Pose(min_detection_confidence=DETECTION, min_tracking_confidence=TRACKING) as pose:

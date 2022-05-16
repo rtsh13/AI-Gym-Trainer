@@ -6,7 +6,7 @@ from utils.constants import *
 from utils.helpers import * 
 
 def sideLegLifting(reps,sets):
-    for _ in sets:
+    for _ in range(sets):
         COUNTER = 0
         flag = 0
         cap = cv2.VideoCapture(0)
