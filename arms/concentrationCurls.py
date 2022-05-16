@@ -6,7 +6,7 @@ from utils.constants import *
 from utils.helpers import * 
 
 def ConcentrationCurls(reps, sets):
-    for _ in sets:
+    for _ in range(sets):
         COUNTER = 0
         STAGE = None
         flag = 0

@@ -6,7 +6,9 @@ from utils.constants import *
 from utils.helpers import * 
 
 def Biceps(reps, sets, equipment):
-    for _ in range(0,sets+1):
+    reps = int(reps)
+    sets = int(sets)
+    for _ in range(sets):
         COUNTER = 0
         STAGE = None
         cap = cv2.VideoCapture(0)
@@ -29,7 +31,6 @@ def Biceps(reps, sets, equipment):
                             STAGE = UP
                             COUNTER +=1
                         if COUNTER == reps and STAGE == DOWN:
-                            print("Congrats for making it this far, Take a break, you have finished your set")
                             break
 
                     except:
