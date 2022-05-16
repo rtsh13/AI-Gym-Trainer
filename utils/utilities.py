@@ -1,4 +1,3 @@
-from constants import *
 import numpy as np
 import cv2
 
