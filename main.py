@@ -6,11 +6,14 @@ from arms.pushups import DiamondPushUps
 from legs.jumpingJacks import JumpingJacks
 from legs.lunges import Lunges
 from legs.squats import Squats
-from utils.constants import BARBELL
+from utils.constants import BARBELL, DUMBBELL
+import cv2
 
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
+
+cap=cv2.VideoCapture(0)
 
 userData=[]
 @app.route('/sendData',methods=['POST'])
@@ -21,15 +24,11 @@ def sendData():
     print(userData)
     return jsonify("Data recieved")
 
-@app.route('/')
-def index():
-    return redirect("landing page", code = 302)
-
 @app.route('/biceps')
 def bicepTemplate():
     return render_template('biceps.html')
 
-@app.route('/pvt')
+@app.route('/pvt1')
 def bicepsVidBox():
     return Response(Biceps(int(userData[0]['reps']), int(userData[0]['sets']), userData[0]['equipment']), mimetype='multipart/x-mixed-replace; boundary=frame')
 

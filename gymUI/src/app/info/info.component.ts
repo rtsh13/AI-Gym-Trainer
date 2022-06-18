@@ -25,7 +25,7 @@ export class InfoComponent implements OnInit {
       reps:[''],
       equipment:[''],
       exercise:[''],
-      camera:['']
+      // camera:['']
     });
   }
 
