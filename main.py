@@ -13,7 +13,7 @@ import cv2
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-cap=cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
 userData=[]
 @app.route('/sendData',methods=['POST'])
@@ -30,7 +30,7 @@ def bicepTemplate():
 
 @app.route('/pvt1')
 def bicepsVidBox():
-    return Response(Biceps(int(userData[0]['reps']), int(userData[0]['sets']), userData[0]['equipment']), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(Biceps(3, 1, DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/concentrationCurls')
 def concTemplate():
