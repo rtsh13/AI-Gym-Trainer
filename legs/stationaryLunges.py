@@ -5,10 +5,11 @@ from utils.utilities import assignAngles, preprocessing
 from utils.constants import *
 from utils.helpers import * 
 
-def Lunges(reps,sets):
+def stationaryLunges(reps,sets):
     for _ in range(sets):
         COUNTER = 0
         STAGE=None
+        flag=0
         cap = cv2.VideoCapture(0)
         with mp_pose.Pose(min_detection_confidence=DETECTION, min_tracking_confidence=TRACKING) as pose:
             while cap.isOpened():
@@ -22,14 +23,27 @@ def Lunges(reps,sets):
                     
                     assignAngles(image, leftBottomAngle, leftKnee, rightBottomAngle, rightKnee)
 
-                    if leftBottomAngle > 160 and rightBottomAngle > 160:
-                        STAGE = UP
-                    if STAGE == UP and leftBottomAngle < 120 and rightBottomAngle < 120:
-                        STAGE = DOWN
-                        COUNTER += 1 
-                    if COUNTER == reps and STAGE == UP:
-                        print("Congrats for making it this far, Take a break, you have finished your set")
-                        break
+                    if flag==0:
+                        if leftBottomAngle > 160 and rightBottomAngle > 160:
+                            STAGE = UP
+                        if STAGE == UP and leftBottomAngle < 120 and rightBottomAngle < 120:
+                            STAGE = DOWN
+                            COUNTER += 1 
+                        if COUNTER == reps and STAGE == UP:
+                            print("Congrats for making it this far, Take a break, you have finished your set")
+                            COUNTER=0
+                            flag=1
+
+                    elif flag==1:
+                        if leftBottomAngle > 160 and rightBottomAngle > 160:
+                            STAGE = UP
+                        if STAGE == UP and leftBottomAngle < 120 and rightBottomAngle < 120:
+                            STAGE = DOWN
+                            COUNTER += 1 
+                        if COUNTER == reps and STAGE == UP:
+                            print("Congrats for making it this far, Take a break, you have finished your set")
+                            break
+                    
 
                 except:
                     pass
