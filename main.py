@@ -2,12 +2,15 @@ from flask import Flask, Response, redirect, render_template,jsonify,request
 from flask_cors import CORS 
 from arms.bicepCurls import Biceps
 from arms.concentrationCurls import ConcentrationCurls
+from arms.kneePushups import KneePushups
 from arms.pushups import DiamondPushUps
 from legs.jumpingJacks import JumpingJacks
 from legs.lunges import Lunges
+from legs.sideLegLifting import SideLegLifting
 from legs.squats import Squats
 from legs.sideLegLifting import sideLegLifting
 from legs.stationaryLunges import stationaryLunges
+from legs.chairSquats import ChairSquats
 from utils.constants import BARBELL, DUMBBELL
 import cv2
 
@@ -32,7 +35,7 @@ def bicepTemplate():
 
 @app.route('/pvt1')
 def bicepsVidBox():
-    return Response(Biceps(3, 1, DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(Biceps(int(userData[0]['reps']),int(userData[0]['sets']), DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/cc')
 def concTemplate():
@@ -40,7 +43,10 @@ def concTemplate():
 
 @app.route('/pvt2')
 def concCurlsVidBox():
-    return Response(ConcentrationCurls(3,1,DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(ConcentrationCurls(int(userData[0]['reps']),int(userData[0]['sets']),DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+
 
 @app.route('/diamondPushups')
 def dpushUpTemplate():
@@ -48,7 +54,10 @@ def dpushUpTemplate():
 
 @app.route('/pvt3')
 def dpushupsVidBox():
-    return Response(DiamondPushUps(3,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(DiamondPushUps(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+
 
 @app.route('/jumpingJacks')
 def jJacksTemplate():
@@ -56,16 +65,35 @@ def jJacksTemplate():
 
 @app.route('/pvt4')
 def jJacksVidBox():
-    return Response(JumpingJacks(10,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(JumpingJacks(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# TODO: #Fix it
 @app.route('/lunges')
 def lungesTemplate():
     return render_template('lunges.html')
 
 @app.route('/pvt5')
 def lungesVidBox():
-    return Response(Lunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(Lunges(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/chairSquat')
+def chairSquatTemplate():
+    return render_template('chair_squat.html')
+
+@app.route('/pvt8')
+def chairSquatVidBox():
+    return Response(ChairSquats(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/kneePushups')
+def kneePushupsTemplate():
+    return render_template('knee_pushups.html')
+
+@app.route('/pvt9')
+def kneePushupsVidbox():
+    return Response(KneePushups(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 
 @app.route('/squats')
 def squatsTemplate():
@@ -73,7 +101,8 @@ def squatsTemplate():
 
 @app.route('/pvt6')
 def squatsVidBox():
-    return Response(Squats(3,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(Squats(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 @app.route('/sideLegLifts')
 def sideLegLifts():
@@ -81,14 +110,14 @@ def sideLegLifts():
 
 @app.route('/pvt7')
 def sideLegLiftsTemplate():
-    return Response(sideLegLifting(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(SideLegLifting(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/stationaryLunges')
 def statLungesTemplate():
     return render_template('stationary-lunges.html')
 
-@app.route('/pvt8')
+@app.route('/pvt11')
 def statLungesVidBox():
     return Response(stationaryLunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 

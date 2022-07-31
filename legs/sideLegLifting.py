@@ -5,7 +5,7 @@ from utils.utilities import assignAngles, preprocessing
 from utils.constants import *
 from utils.helpers import * 
 
-def sideLegLifting(reps,sets):
+def SideLegLifting(reps,sets):
     for _ in range(sets):
         COUNTER = 0
         flag = 0
