@@ -6,6 +6,7 @@ from arms.kneePushups import KneePushups
 from arms.pushups import DiamondPushUps
 from legs.jumpingJacks import JumpingJacks
 from legs.lunges import Lunges
+from legs.sideLegLifting import SideLegLifting
 from legs.squats import Squats
 from legs.chairSquats import ChairSquats
 from utils.constants import BARBELL, DUMBBELL
@@ -111,7 +112,7 @@ def sideLegLifts():
 
 @app.route('/pvt7')
 def sideLegLiftsTemplate():
-    return Response(sideLegLifts(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(SideLegLifting(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 
