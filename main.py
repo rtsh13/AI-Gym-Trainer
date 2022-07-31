@@ -6,6 +6,8 @@ from arms.pushups import DiamondPushUps
 from legs.jumpingJacks import JumpingJacks
 from legs.lunges import Lunges
 from legs.squats import Squats
+from legs.sideLegLifting import sideLegLifting
+from legs.stationaryLunges import stationaryLunges
 from utils.constants import BARBELL, DUMBBELL
 import cv2
 
@@ -57,13 +59,13 @@ def jJacksVidBox():
     return Response(JumpingJacks(10,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # TODO: #Fix it
-# @app.route('/lunges')
-# def lungesTemplate():
-#     return render_template('lunges.html')
+@app.route('/lunges')
+def lungesTemplate():
+    return render_template('lunges.html')
 
-# @app.route('/pvt5')
-# def lungesVidBox():
-#     return Response(Lunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/pvt5')
+def lungesVidBox():
+    return Response(Lunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/squats')
 def squatsTemplate():
@@ -79,8 +81,16 @@ def sideLegLifts():
 
 @app.route('/pvt7')
 def sideLegLiftsTemplate():
-    return Response(sideLegLifts(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(sideLegLifting(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
+@app.route('/stationaryLunges')
+def statLungesTemplate():
+    return render_template('stationary-lunges.html')
+
+@app.route('/pvt8')
+def statLungesVidBox():
+    return Response(stationaryLunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == "__main__":

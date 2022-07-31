@@ -43,7 +43,7 @@ def get_coordinates(landmarks,type):
     elif type == SQUATS:
         return leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle
     elif type == LUNGES:
-        return rightHeel,rightKnee,rightHip,leftHeel,leftKnee,leftHip
+        return leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle
     elif type == PUSHUPS:
         return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
     elif type == BICEPS:
