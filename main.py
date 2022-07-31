@@ -32,53 +32,54 @@ def bicepTemplate():
 def bicepsVidBox():
     return Response(Biceps(3, 1, DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/concentrationCurls')
+@app.route('/cc')
 def concTemplate():
     return render_template('conc-curl.html')
 
-@app.route('/pvt')
+@app.route('/pvt2')
 def concCurlsVidBox():
-    return Response(ConcentrationCurls(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(ConcentrationCurls(3,1,DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/diamondPushups')
 def dpushUpTemplate():
     return render_template('dp.html')
 
-@app.route('/pvt')
+@app.route('/pvt3')
 def dpushupsVidBox():
-    return Response(DiamondPushUps(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(DiamondPushUps(3,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/jumpingJacks')
 def jJacksTemplate():
     return render_template('jumping-jacks.html')
 
-@app.route('/pvt')
+@app.route('/pvt4')
 def jJacksVidBox():
-    return Response(JumpingJacks(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(JumpingJacks(10,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/lunges')
-def lungesTemplate():
-    return render_template('lunges.html')
+# TODO: #Fix it
+# @app.route('/lunges')
+# def lungesTemplate():
+#     return render_template('lunges.html')
 
-@app.route('/pvt')
-def lungesVidBox():
-    return Response(Lunges(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+# @app.route('/pvt5')
+# def lungesVidBox():
+#     return Response(Lunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/squats')
 def squatsTemplate():
     return render_template('squats.html')
 
-@app.route('/pvt')
+@app.route('/pvt6')
 def squatsVidBox():
-    return Response(Squats(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(Squats(3,1), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/sideLegLifts')
 def sideLegLifts():
     return render_template('side-leg-lifts.html')
 
-@app.route('/pvt')
+@app.route('/pvt7')
 def sideLegLiftsTemplate():
-    return Response(JumpingJacks(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(sideLegLifts(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 

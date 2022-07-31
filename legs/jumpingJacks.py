@@ -17,7 +17,7 @@ def JumpingJacks(reps, sets):
 
                 try:
                     landmarks = detections.pose_landmarks.landmark
-                    leftShoulder,leftElbow,leftWrist,leftHip,_,leftAnkle,rightShoulder,rightElbow,rightWrist,rightHip,_,rightAnkle = get_coordinates(landmarks,JUMPING_JACKS)
+                    leftShoulder,leftElbow,leftWrist,leftHip,leftKnee,leftAnkle,rightShoulder,rightElbow,rightWrist,rightHip,rightKnee,rightAnkle = get_coordinates(landmarks,JUMPING_JACKS)
                     leftAngleTop = math.trunc(compute(leftShoulder, leftElbow, leftWrist))
                     rightAngleTop = math.trunc(compute(rightShoulder,rightElbow,rightWrist))
                     leftAngleBottom = math.trunc(compute(leftAnkle,leftHip,rightHip))

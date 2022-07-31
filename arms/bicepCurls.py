@@ -6,8 +6,6 @@ from utils.constants import *
 from utils.helpers import * 
 
 def Biceps(reps, sets, equipment):
-    # reps = int(reps)
-    # sets = int(sets)
     for _ in range(sets):
         COUNTER = 0
         STAGE = None

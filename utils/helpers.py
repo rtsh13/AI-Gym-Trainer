@@ -41,15 +41,15 @@ def get_coordinates(landmarks,type):
     if type == JUMPING_JACKS:
         return leftShoulder,leftElbow,leftWrist,leftHip,leftKnee,leftAnkle,rightShoulder,rightElbow,rightWrist,rightHip,rightKnee,rightAnkle
     elif type == SQUATS:
-        return leftWrist,leftElbow,leftShoulder,rightWrist,rightElbow,rightShoulder,leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle
+        return leftHip,leftKnee,leftAnkle,rightHip,rightKnee,rightAnkle
     elif type == LUNGES:
         return rightHeel,rightKnee,rightHip,leftHeel,leftKnee,leftHip
     elif type == PUSHUPS:
         return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
     elif type == BICEPS:
         return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
-    elif type == TRICEPS:
-        return leftShoulder,leftElbow,leftWrist,leftHip,leftKnee,rightShoulder,rightElbow,rightWrist,rightHip,rightKnee
+    elif type == CONCCURLS:
+        return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
 
 def renderText(image,COUNTER,STAGE):
     cv2.rectangle(image, (0, 0),(65,80),(0,0,0), -1)

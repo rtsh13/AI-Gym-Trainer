@@ -18,7 +18,7 @@ DUMBBELL = "Dumbbell"
 BARBELL = "Barbell"
 PUSHUPS = "Diamond Pushups"
 BICEPS = "Bicep Curls"
-TRICEPS="Tricep Extensions"
+CONCCURLS="Concentration curls"
 
 # Legs Parameters
 SQUATS = "Squats"
