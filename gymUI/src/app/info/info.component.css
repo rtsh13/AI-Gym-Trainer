@@ -10,6 +10,11 @@
     width: 75%;
 
 } */
+.center{
+    background-image: url("download.jpg");
+    /* background-color: #cccccc; */
+   }
+
 mat-card{
     padding: 10px;
     margin: 10px;

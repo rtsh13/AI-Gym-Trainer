@@ -16,7 +16,7 @@ def SideLegLifting(reps,sets):
                 image, detections = preprocessing(cap,pose)
                 try:
                     landmarks = detections.pose_landmarks.landmark
-                    _,leftElbow,leftShoulder,_,rightElbow,rightShoulder,leftHip,leftKnee,_,rightHip,rightKnee,_ = get_coordinates(landmarks, SIDE_LEG_LIFTING)
+                    leftElbow,leftShoulder,rightElbow,rightShoulder,leftHip,leftKnee,rightHip,rightKnee = get_coordinates(landmarks, SIDE_LEG_LIFTING)
                     leftAngle = math.trunc(compute(leftShoulder, leftHip, leftKnee))
                     rightAngle = math.trunc(compute(rightShoulder,rightHip,rightKnee))
 

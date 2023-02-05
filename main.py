@@ -8,7 +8,6 @@ from legs.jumpingJacks import JumpingJacks
 from legs.lunges import Lunges
 from legs.sideLegLifting import SideLegLifting
 from legs.squats import Squats
-from legs.sideLegLifting import sideLegLifting
 from legs.stationaryLunges import stationaryLunges
 from legs.chairSquats import ChairSquats
 from utils.constants import BARBELL, DUMBBELL
@@ -35,7 +34,7 @@ def bicepTemplate():
 
 @app.route('/pvt1')
 def bicepsVidBox():
-    return Response(Biceps(int(userData[0]['reps']),int(userData[0]['sets']), DUMBBELL), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(Biceps(int(userData[0]['reps']),int(userData[0]['sets']), userData[0]['equipment']), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/cc')
 def concTemplate():
@@ -119,7 +118,7 @@ def statLungesTemplate():
 
 @app.route('/pvt11')
 def statLungesVidBox():
-    return Response(stationaryLunges(5,1), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(stationaryLunges(int(userData[0]['reps']),int(userData[0]['sets'])), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == "__main__":
