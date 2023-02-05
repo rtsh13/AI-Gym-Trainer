@@ -12,7 +12,7 @@ export class InfoComponent implements OnInit {
 
   form: FormGroup;
   equipmentList:string[]=['Barbell','Dumbell'];
-  exerciseList:string[]=['Squats','Bicep curls','Side leg lift','Diamond pushups','Normal pushups','Jumping jacks','Lunges','Concentration Curls'];
+  exerciseList:string[]=['Squats','Bicep curls','Side leg lift','Diamond pushups','Normal pushups','Jumping jacks','Lunges','Concentration Curls','Knee pushups','Chair squats','Stationary lunges'];
   cameraList:string[]=['External','Internal'];
 
   constructor(private fb:FormBuilder,private http:HttpClient,private router:Router,private route:ActivatedRoute) { }
@@ -43,7 +43,7 @@ export class InfoComponent implements OnInit {
       window.location.href = "http://127.0.0.1:5000/squats"  
     }  
     if (data.exercise == 'Side leg lift'){
-      window.location.href = "http://127.0.0.1:5000/biceps"  
+      window.location.href = "http://127.0.0.1:5000/sideLegLifts"  
     }
     if (data.exercise == 'Diamond pushups'){
       window.location.href = "http://127.0.0.1:5000/diamondPushups"  
@@ -58,8 +58,18 @@ export class InfoComponent implements OnInit {
       window.location.href = "http://127.0.0.1:5000/lunges"  
     }
     if (data.exercise == 'Concentration Curls'){
-      window.location.href = "http://127.0.0.1:5000/concentrationCurls"  
+      window.location.href = "http://127.0.0.1:5000/cc"  
     }
+    if (data.exercise == 'Knee pushups'){
+      window.location.href = "http://127.0.0.1:5000/kneePushups"  
+    }
+    if (data.exercise == 'Chair squats'){
+      window.location.href = "http://127.0.0.1:5000/chairSquat"  
+    }
+    if (data.exercise == 'Stationary lunges'){
+      window.location.href = "http://127.0.0.1:5000/stationaryLunges"  
+    }
+
   }
 
   onClose(){

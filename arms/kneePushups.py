@@ -8,6 +8,7 @@ from utils.helpers import *
 def KneePushups(reps, sets):
     for _ in range(sets):
         COUNTER = 0
+        STAGE=None
         cap = cv2.VideoCapture(0)
         with mp_pose.Pose(min_detection_confidence=DETECTION, min_tracking_confidence=TRACKING) as pose:
             while cap.isOpened():

@@ -50,6 +50,8 @@ def get_coordinates(landmarks,type):
         return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
     elif type == CONCCURLS:
         return leftShoulder,leftElbow,leftWrist,rightShoulder,rightElbow,rightWrist
+    elif type == SIDE_LEG_LIFTING:
+        return leftElbow,leftShoulder,rightElbow,rightShoulder,leftHip,leftKnee,rightHip,rightKnee
 
 def renderText(image,COUNTER,STAGE):
     cv2.rectangle(image, (0, 0),(65,80),(0,0,0), -1)
