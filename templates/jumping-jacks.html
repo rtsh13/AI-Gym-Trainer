@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            h1 {
+            text-align: center;
+            color: rgb(4, 4, 4);
+            font-size: xx-large;
+            }
+            body{
+                background-color: lightgray;
+                text-align: center;
+            }
+            button{
+                color: green;
+                text-decoration: solid;
+                font-weight: bold;
+                font-size: medium;
+            }
+        </style>
+    <title>
+        AI-Gym Trainer
+    </title>
+    </head>
+    <body>
+    <h1>They say, jumping really helps you burn calories (iykyk)</h1>
+    <div>
+        <img src="{{ url_for('jJacksVidBox') }}" width="40%" height="40%"/>
+    </div>   
+    <div>
+        <button id="myButton" class="float-center submit-button">Stop</button>
+        <script type="text/javascript">
+            document.getElementById("myButton").onclick = function () {
+                location.href = "http://localhost:4200/home";
+            };
+        </script> 
+    </div>   
+    </body>
+</html>

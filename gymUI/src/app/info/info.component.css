@@ -1,0 +1,26 @@
+/* .center{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+/* #card{
+    padding: 10px;
+    margin: 10px;
+    width: 75%;
+
+} */
+.center{
+    background-image: url("download.jpg");
+    /* background-color: #cccccc; */
+   }
+
+mat-card{
+    padding: 10px;
+    margin: 10px;
+    width: 75%;
+    /* display: block; */
+    margin-left:auto;
+    margin-right:auto;  
+    /* vertical-align:middle; */
+}

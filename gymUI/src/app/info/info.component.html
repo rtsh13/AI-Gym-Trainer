@@ -1,0 +1,84 @@
+<div class="center">
+<mat-card id="card">
+    <mat-card-title align="center">Register For your exercise</mat-card-title>
+    <mat-card-actions>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col" align="center">
+                    <h4>First Name</h4>
+                    <mat-form-field appearance="fill">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName">
+                    </mat-form-field>
+                </div>
+                <div class="col" align="center">
+                    <h4>Last Name</h4>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" align="center">
+                    <h4>Sets</h4>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sets</mat-label>
+                        <input matInput formControlName="sets">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6" align="center">
+                    <h4>Reps</h4>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Reps</mat-label>
+                        <input matInput formControlName="reps">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-6" align="center">
+                    <h4>Equipment</h4>
+                    <mat-form-field appearance="fill" >
+                        <mat-label>Equipment</mat-label>
+                        <mat-select formControlName="equipment">
+                            <mat-option *ngFor="let eq of equipmentList" [value]="eq">{{eq}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6" align="center">
+                    <h4>Exercise</h4>
+                    <mat-form-field appearance="fill" >
+                        <mat-label>Exercise</mat-label>
+                        <mat-select formControlName="exercise">
+                            <mat-option *ngFor="let ex of exerciseList" [value]="ex">{{ex}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col" align="center">
+                    <h4>Camera</h4>
+                    <mat-form-field appearance="fill" >
+                        <mat-label>Camera</mat-label>
+                        <mat-select formControlName="camera">
+                            <mat-option *ngFor="let cam of cameraList" [value]="cam">{{cam}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> -->
+            <div align="center">
+                <button mat-button 
+                class="button btn-primary" 
+                type="Submit" 
+                style="margin-right:5px ;"
+                [disabled]="!form.valid">OK</button>
+                <button mat-button 
+                class="btn btn-primary"  
+                style="margin-right: 5px;"
+                type="button"
+                (click)="onClose()">Cancel</button>
+            </div>
+        </form>
+    </mat-card-actions>
+</mat-card>
+</div>
